@@ -1,0 +1,8 @@
+/**/*~
+node_modules/
+*#
+doc/
+npm-debug.log
+tmp/
+gh-pages/
+spec-karma/mod/

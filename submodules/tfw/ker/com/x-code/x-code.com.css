@@ -1,0 +1,69 @@
+pre.highlight {
+    position: relative;
+    margin: 4px;
+    padding: 8px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,.5);
+    color: #333;
+    border-radius: 0;
+    border: none;
+    overflow-x: auto;
+    font-size: 85%;
+}
+
+pre.highlight::after {
+    content: "Javascript";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px;
+    font-variant: small-fonts;
+    opacity: .1;
+    font-size: 80%;
+    color: #000;
+}
+
+pre.highlight.glsl::after {
+  content: "GLSL";
+}
+
+pre.highlight .keyword {
+    color: #07f;
+    font-weight: bold;
+}
+
+pre.highlight .keyword2 {
+    color: #0bb;
+    font-weight: bold;
+}
+
+pre.highlight .function {
+    color: #000;
+    font-weight: bold;
+}
+
+pre.highlight .number {
+    color: #c80;
+    font-weight: bold;
+}
+
+pre.highlight .symbol {
+    color: #804;
+}
+
+pre.highlight .operator {
+    color: #840;
+}
+
+pre.highlight .comment {
+    color: #0005;
+}
+
+pre.highlight .string {
+    color: #0b0;
+}
+
+pre.highlight .regexp {
+    background: #ff8;
+    color: #000;
+}

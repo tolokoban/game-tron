@@ -1,0 +1,19 @@
+div.wdg-box-button {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 48px;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0 1rem;
+    cursor: auto;
+}
+
+div.wdg-box-button.pointer {
+    cursor: pointer;
+}
+
+div.wdg-box-button.wide {
+    display: flex;
+}
