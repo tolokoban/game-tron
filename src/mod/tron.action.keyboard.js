@@ -2,7 +2,7 @@
 
 const {
   readonly
-} = require("common");
+} = require( "common" );
 
 const Context = {
   isLoaded: false,
@@ -25,10 +25,15 @@ exports.create = create;
 
 class Keyboard {
   constructor() {
-
+    ensureKeysListenerIsAttached()
   }
 }
 
-function create(args) {
-  return new Keyboard(args);
+function create( args ) {
+  return new Keyboard( args );
 };
+
+
+function ensureKeysListenerIsAttached() {
+
+}
