@@ -1,16 +1,17 @@
 "use strict"
 
-const Keyboard = require("tron.action.keyboard");
+const Keyboard = require( "tron.action.keyboard" );
 
 exports.NONE = Keyboard.NONE;
 exports.LEFT = Keyboard.LEFT;
 exports.RIGHT = Keyboard.RIGHT;
 
-exports.create = function(args) {
-  switch (type) {
+
+exports.create = function ( args ) {
+    switch ( args.type ) {
     case 'keyboard':
-      return Keyboard.create(args)
+        return Keyboard.create( args );
     default:
-      return null;
-  }
+        return null;
+    }
 };

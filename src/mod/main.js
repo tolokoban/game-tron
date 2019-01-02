@@ -1,24 +1,18 @@
-function $(id) {
-    return window.document.getElementById(id);
+"use strict";
+
+exports.start = start;
+
+const Action = require( "tron.action" );
+
+/**
+ * @return {undefined}
+ */
+function start() {
+    const action = Action.create( { type: 'keyboard' } );
 }
 
-function setLanguage(lang) {
-    require("$").lang(lang);
-    window.location = "index.html";
-}
-
-$("welcome").textContent = _("welcome");
-$("fr").addEventListener(
-    "click",
-    function() {
-        setLanguage("fr");
-    },
-    false
-);
-$("en").addEventListener(
-    "click",
-    function() {
-        setLanguage("en");
-    },
-    false
-);
+/**
+ * @this {Action}
+ * @return {undefined}
+ */
+function test() {}

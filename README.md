@@ -66,3 +66,9 @@ généricité et s'il vous faut plus tard changer de technologie vous devrez ré
 des pans entier de code et tout retester.
 
 Passons aux [interfaces](md/interfaces.md).
+
+# Les différentes itérations
+
+## Sprint 1
+
+On veut une vue 2D avec une seule voiture pilotée par le clavier. Visuellement, on n'a besoin que des murs du sillage qui seront représentées par des lignes d'un pixel d'épaisseur. Aucun test de collision.
