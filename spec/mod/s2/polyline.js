@@ -1,7 +1,5 @@
 "use strict";
 
-function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -142,10 +140,10 @@ require('s2/polyline', function (require, module, exports) {
 
   function collideVertical(x, y0, y1) {
     var arr = this._arr,
-        xx0 = this.startX,
-        yy0 = this.startY,
         ya = Math.min(y0, y1),
         yb = Math.max(y0, y1);
+    var xx0 = this.startX,
+        yy = this.startY;
 
     for (var k = 2; k < this._length; k += 2) {
       // On ne teste que les segments horizonzaux de murs.
@@ -153,16 +151,13 @@ require('s2/polyline', function (require, module, exports) {
           xx1 = arr[index];
 
       if (xx1 === xx0) {
-        yy0 = (_readOnlyError("yy0"), arr[index + 1]);
+        yy = arr[index + 1];
         continue;
       }
 
-      var yy = yy0,
-          // Mur horizontal : même Y tout le long.
-      xMin = Math.min(xx0, xx1),
+      var xMin = Math.min(xx0, xx1),
           xMax = Math.max(xx0, xx1);
-      xx0 = (_readOnlyError("xx0"), xx1);
-      yy0 = (_readOnlyError("yy0"), yy1);
+      xx0 = xx1;
       if (x < xMin || x > xMax) continue;
       if (yy < ya || yy > yb) continue;
       return true;

@@ -116,24 +116,22 @@ module.exports = Polyline;
  */
 function collideVertical( x, y0, y1 ) {
   const arr = this._arr,
-        xx0 = this.startX,
-        yy0 = this.startY,
         ya = Math.min( y0, y1 ),
         yb = Math.max( y0, y1 );
+  let xx0 = this.startX,
+      yy = this.startY;
 
   for( let k = 2; k < this._length; k += 2 ) {
     // On ne teste que les segments horizonzaux de murs.
     const index = (k + this._start) % this._length,
           xx1 = arr[index];
     if( xx1 === xx0 ) {
-      yy0 = arr[index + 1];
+      yy = arr[index + 1];
       continue;
     }
-    const yy = yy0,  // Mur horizontal : même Y tout le long.
-          xMin = Math.min( xx0, xx1 ),
+    const xMin = Math.min( xx0, xx1 ),
           xMax = Math.max( xx0, xx1 );
     xx0 = xx1;
-    yy0 = yy1;
     if( ( x < xMin ) || ( x > xMax ) ) continue;
     if( ( yy < ya ) || ( yy > yb ) ) continue;
     return true;
