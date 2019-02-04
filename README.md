@@ -31,4 +31,4 @@ Chaque voiture a trois actions possibles :
 On veut une vue 2D avec une seule voiture pilotée par le clavier. Visuellement, on n'a besoin que des murs du sillage qui seront représentées par des lignes d'un pixel d'épaisseur. Aucun test de collision.
 
 * [Le résultat](https://tolokoban.github.io/game-tron/s1.html).
-* [Les sources](https://github.com/tolokoban/game-tron/s1).
+* [Les sources](https://github.com/tolokoban/game-tron/tree/master/src/mod/s1).

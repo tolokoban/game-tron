@@ -1,42 +1,66 @@
 {
-  "name": "game-tron",
-  "author": "tolokoban",
-  "description": "Step by step making-of tron like game.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tolokoban/game-tron.git"
-  },
-  "homepage": "https://tolokoban.github.io/game-tron/index.html",
-  "license": "GPL-3.0",
-  "scripts": {
-    "test": "node node_modules/karma/bin/karma start karma.conf.js",
-    "test:dbg": "node --debug-brk node_modules/karma/bin/karma start karma.conf.js",
-    "debug": "node toloframework/bin/tfw.js build debug test",
-    "watch": "node toloframework/bin/tfw.js build debug test watch",
-    "clean": "node toloframework/bin/tfw.js clean",
-    "release": "node toloframework/bin/tfw.js build version clean"
-  },
-  "bugs": {
-    "url": "https://github.com/tolokoban/game-tron/issues"
-  },
-  "tfw": {
-    "resources": [],
-    "modules": [],
-    "compile": {
-      "type": "web",
-      "files": [ "\\.html$" ]
+    "name": "game-tron",
+    "author": "tolokoban",
+    "description": "Step by step making-of tron like game.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tolokoban/game-tron.git"
     },
-    "output": "www"
-  },
-  "version": "0.0.1",
-  "reservedModules": [],
-  "dependencies": {
-    "jasmine": "^2.99.0",
-    "jasmine-core": "^2.99.1",
-    "karma": "^2.0.2",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-firefox-launcher": "^1.1.0",
-    "karma-jasmine": "^1.1.2",
-    "toloframework": "^0.49"
-  }
+    "homepage": "https://tolokoban.github.io/game-tron/index.html",
+    "license": "GPL-3.0",
+    "scripts": {
+        "test": "node node_modules/karma/bin/karma start karma.conf.js",
+        "test:dbg": "node --debug-brk node_modules/karma/bin/karma start karma.conf.js",
+        "debug": "node toloframework/bin/tfw.js build debug test",
+        "watch": "node toloframework/bin/tfw.js build debug test watch",
+        "clean": "node toloframework/bin/tfw.js clean",
+        "release": "node toloframework/bin/tfw.js build version clean"
+    },
+    "bugs": {
+        "url": "https://github.com/tolokoban/game-tron/issues"
+    },
+    "tfw": {
+        "resources": [],
+        "modules": [],
+        "compile": {
+            "type": "desktop",
+            "files": [
+                "\\.html$"
+            ]
+        },
+        "output": "www"
+    },
+    "version": "0.0.2",
+    "reservedModules": [
+        "fs",
+        "path",
+        "process",
+        "child_process",
+        "cluster",
+        "http",
+        "os",
+        "crypto",
+        "dns",
+        "domain",
+        "events",
+        "https",
+        "net",
+        "readline",
+        "stream",
+        "string_decoder",
+        "tls",
+        "dgram",
+        "util",
+        "vm",
+        "zlib"
+    ],
+    "dependencies": {
+        "jasmine": "^2.99.0",
+        "jasmine-core": "^2.99.1",
+        "karma": "^2.0.2",
+        "karma-chrome-launcher": "^2.2.0",
+        "karma-firefox-launcher": "^1.1.0",
+        "karma-jasmine": "^1.1.2",
+        "toloframework": "^0.49"
+    }
 }
