@@ -5,34 +5,40 @@ const Dom = require("dom"),
       Action = require("s2/tron.action");
 
 
-const DIMENSION = 2;
-
-
 exports.start = function() {
-    const canvas = Dom("canvas"),
-          ctx = canvas.getContext( "2d" ),
-          action = Action.create({ type: "keyboard" }),
-          car = new Car( action );
+  const canvas = Dom("canvas"),
+        ctx = canvas.getContext( "2d" ),
+        action = Action.create({ type: "keyboard" }),
+        car = new Car( action );
 
-    canvas.setAttribute( "width", canvas.clientWidth );
-    canvas.setAttribute( "height", canvas.clientHeight );
+  canvas.setAttribute( "width", canvas.clientWidth );
+  canvas.setAttribute( "height", canvas.clientHeight );
 
-    function anim( time ) {
-        ctx.clearRect( 0, 0, canvas.width, canvas.height );
+  function anim( time ) {
+    window.requestAnimationFrame( anim );
+    
+    ctx.clearRect( 0, 0, canvas.width, canvas.height );
 
-        const walls = car.walls;
-        ctx.beginPath();
-        ctx.moveTo( walls[0], walls[1] );
-        for( let i = 2; i < walls.length; i += DIMENSION ) {
-            ctx.lineTo( walls[i], walls[i + 1] );
-        }
-        ctx.strokeStyle = "#f70";
-        ctx.stroke();
+    if( car.isDead ) return;
+    
+    const polyline = car.polyline;
+    ctx.beginPath();
+    ctx.moveTo( polyline.firstX, polyline.firstY );
+    polyline.foreachTail( (x, y) => ctx.lineTo( x, y ) );
+    ctx.strokeStyle = "#f70";
+    ctx.stroke();
 
-        car.move( time );
+    const x0 = car.polyline.lastX,
+          y0 = car.polyline.lastY;
+    car.move( time );
+    const x1 = car.polyline.lastX,
+          y1 = car.polyline.lastY;
 
-        window.requestAnimationFrame( anim );
+    if( car.polyline.collide( x0, y0, x1, y1 ) ) {
+      car.isDead = true;
     }
 
-    window.requestAnimationFrame( anim );
+  }
+
+  window.requestAnimationFrame( anim );
 };

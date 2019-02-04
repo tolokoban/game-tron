@@ -12,8 +12,6 @@ require('s2/app', function (require, module, exports) {
       Car = require("s2/car"),
       Action = require("s2/tron.action");
 
-  var DIMENSION = 2;
-
   exports.start = function () {
     var canvas = Dom("canvas"),
         ctx = canvas.getContext("2d"),
@@ -25,19 +23,26 @@ require('s2/app', function (require, module, exports) {
     canvas.setAttribute("height", canvas.clientHeight);
 
     function anim(time) {
+      window.requestAnimationFrame(anim);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      var walls = car.walls;
+      if (car.isDead) return;
+      var polyline = car.polyline;
       ctx.beginPath();
-      ctx.moveTo(walls[0], walls[1]);
-
-      for (var i = 2; i < walls.length; i += DIMENSION) {
-        ctx.lineTo(walls[i], walls[i + 1]);
-      }
-
+      ctx.moveTo(polyline.firstX, polyline.firstY);
+      polyline.foreachTail(function (x, y) {
+        return ctx.lineTo(x, y);
+      });
       ctx.strokeStyle = "#f70";
       ctx.stroke();
+      var x0 = car.polyline.lastX,
+          y0 = car.polyline.lastY;
       car.move(time);
-      window.requestAnimationFrame(anim);
+      var x1 = car.polyline.lastX,
+          y1 = car.polyline.lastY;
+
+      if (car.polyline.collide(x0, y0, x1, y1)) {
+        car.isDead = true;
+      }
     }
 
     window.requestAnimationFrame(anim);
