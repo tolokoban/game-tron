@@ -1,0 +1,26 @@
+digraph dependencies {
+    "s2/app" -> "dom"
+
+    "s2/app" -> "s2/car"
+
+    "s2/app" -> "s2/tron.action"
+    "s2/tron.action" -> "s2/tron.action.keyboard"
+    "s2/tron.action.keyboard" -> "common"
+    "dom" -> "$"
+
+    "dom" -> "polyfill.classList"
+
+    "dom" -> "dom.theme"
+
+    "dom" -> "tfw.gestures"
+    "tfw.gestures" -> "$"
+
+    "tfw.gestures" -> "external.hammer"
+    "external.hammer" -> "$"
+    "dom.theme" -> "$"
+
+    "dom.theme" -> "tfw.color"
+    "tfw.color" -> "$"
+    "polyfill.classList" -> "$"
+
+}
