@@ -33,6 +33,10 @@ require('dom', function (require, module, exports) {
   var Theme = require("dom.theme"),
       Gestures = require("tfw.gestures");
 
+  var // Used to store data on the DOM element without colliding with existing attributes.
+  SYMBOL = '@dom' + Date.now(),
+      RX_ENTITY = /^&(#[0-9]+|[a-zA-Z0-9]+);$/;
+
   function $(dom) {
     if (dom instanceof Node) return dom;
 
@@ -58,10 +62,7 @@ require('dom', function (require, module, exports) {
   }
 
   ;
-  module.exports = $; // Used to store data on the DOM element without colliding with existing attributes.
-
-  var SYMBOL = '@dom' + Date.now();
-  var RX_ENTITY = /^&(#[0-9]+|[a-zA-Z0-9]+);$/;
+  module.exports = $;
   $.tagNS = tagNS;
   $.svgRoot = tagNS.bind(undefined, "http://www.w3.org/2000/svg", "svg", {
     version: '1.1',

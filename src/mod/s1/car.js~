@@ -1,0 +1,23 @@
+"use strict";
+
+const DIRECTIONS = [ [0 ,-1], [1, 0], [0, 1], [-1, 0] ];
+
+
+class Car {
+    constructor( x = 0, y = 256, dir = 1 ) {
+        this.walls = [x, y];
+        this.speed = 0.125;
+        this.lastTime = 0;
+    }
+
+    move( time ) {
+        if( this.lastTime === 0 ) {
+            this.lastTime = time;
+            return;
+        }
+
+        const delta = time - this.lastTime;
+        
+    }
+    
+}

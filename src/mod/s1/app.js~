@@ -1,0 +1,9 @@
+"use strict";
+
+const Dom = require("dom");
+
+
+exports.start = function() {
+    const canvas = Dom("canvas");
+    console.info("[app] canvas=", canvas);
+};

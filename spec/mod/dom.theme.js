@@ -28,8 +28,8 @@ require('dom.theme', function (require, module, exports) {
 
   var Color = require("tfw.color");
 
-  var THEME_COLOR_NAMES = ["0", "1", "2", "3", "P", "PD", "PL", "S", "SD", "SL"];
-  var THEMES = {
+  var THEME_COLOR_NAMES = ["0", "1", "2", "3", "P", "PD", "PL", "S", "SD", "SL"],
+      THEMES = {
     css: {},
     current: null
   };
