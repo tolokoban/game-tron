@@ -28,7 +28,22 @@ Chaque voiture a trois actions possibles :
 
 ## Sprint 1
 
-On veut une vue 2D avec une seule voiture pilotée par le clavier. Visuellement, on n'a besoin que des murs du sillage qui seront représentées par des lignes d'un pixel d'épaisseur. Aucun test de collision.
+On veut une vue 2D avec une seule voiture pilotée par le clavier. Visuellement, on n'a besoin que des murs du sillage qui seront représentées par des lignes d'un pixel d'épaisseur. Le joueur peut utiliser le clavier pour aller à droite, aller à gauche  ou accélérer.
 
 * [Le résultat](https://tolokoban.github.io/game-tron/s1.html).
 * [Les sources](https://github.com/tolokoban/game-tron/tree/master/src/mod/s1).
+
+## Sprint 2
+
+On ajoute le test de collision avec sa propre trainée. Si on percute son propre mur, tout disparait et le jeu s'arrête.
+
+* [Le résultat](https://tolokoban.github.io/game-tron/s2.html).
+* [Les sources](https://github.com/tolokoban/game-tron/tree/master/src/mod/s2).
+
+## Sprint 3
+
+Création d'une intelligence artificielle pour ajouter un ennemi.
+
+## Sprint 4
+
+Première représentation 3D où on ne voit que les murs.
