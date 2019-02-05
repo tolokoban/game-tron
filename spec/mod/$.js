@@ -6,11 +6,11 @@ require('$', function (require, module, exports) {
     "name": "\"game-tron\"",
     "description": "\"Step by step making-of tron like game.\"",
     "author": "\"tolokoban\"",
-    "version": "\"0.0.4\"",
+    "version": "\"0.0.6\"",
     "major": "0",
     "minor": "0",
-    "revision": "4",
-    "date": "2019-02-04T15:32:10.810Z",
+    "revision": "6",
+    "date": "2019-02-05T16:37:31.184Z",
     "consts": {}
   };
   "use strict";

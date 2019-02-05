@@ -8,7 +8,6 @@ module.exports = {
 };
 
 
-
 const { readonly } = require( "common" );
 
 const Context = {
@@ -41,6 +40,15 @@ class Keyboard {
             }
         } );
         ensureKeysListenerIsAttached();
+    }
+
+    /**
+     * Cette méthode est appellée  sur toutes les actions à chaque frame, mais  pour cette action il
+     * n'y a rien à faire.
+     */
+    process() {
+        /* eslint class-methods-use-this: 0 */
+        // Il n'y a rien à faire de particulier à chaque frame.
     }
 }
 

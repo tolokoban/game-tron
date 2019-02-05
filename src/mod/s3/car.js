@@ -1,28 +1,64 @@
 "use strict";
 
-const Polyline = require("s2/polyline"),
+const Polyline = require("s3/polyline"),
       { readonly } = require("common");
 
+const IDX_X = 0;
+const IDX_Y = 1;
 const MINUS_ONE = -1;
 const DIRECTIONS = [ [0, MINUS_ONE], [1, 0], [0, 1], [MINUS_ONE, 0] ];
+const NB_DIRS = DIRECTIONS.length;
 const RIGHT = 1;
 const LEFT = 3;
 const DEFAULT_X = 0;
 const DEFAULT_Y = 256;
+const MIN_SPEED = 0.050;
+const MAX_SPEED = 0.250;
+const BREAK = 0.0005;
+
 
 class Car {
-    constructor( action, x = DEFAULT_X, y = DEFAULT_Y, dir = RIGHT ) {
+    constructor({
+        action,
+        x = DEFAULT_X,
+        y = DEFAULT_Y,
+        dir = RIGHT,
+        color = "cyan",
+        minSpeed = MIN_SPEED,
+        maxSpeed = MAX_SPEED,
+        breakPower = BREAK
+    }) {
+        const that = this;
+
         this.action = action;
-        this.walls = [x, y, x, y];
-        this.minSpeed = 0.050;
-        this.speed = this.minSpeed;
-        this.maxSpeed = 0.250;
-        this.break = 0.0005;
+        this.speed = minSpeed;
         this.lastTime = 0;
         this.dir = dir;
 
         readonly( this, {
-            polyline: new Polyline( x, y )
+            minSpeed,
+            maxSpeed,
+            breakPower,
+            color,
+            polyline: new Polyline( x, y ),
+            vx() {
+                return DIRECTIONS[that.dir][IDX_X];
+            },
+            vy() {
+                return DIRECTIONS[that.dir][IDX_Y];
+            },
+            vxRight() {
+                return DIRECTIONS[(that.dir + 1) % NB_DIRS][IDX_X];
+            },
+            vyRight() {
+                return DIRECTIONS[(that.dir + 1) % NB_DIRS][IDX_Y];
+            },
+            vxLeft() {
+                return DIRECTIONS[(that.dir + 3) % NB_DIRS][IDX_X];
+            },
+            vyLeft() {
+                return DIRECTIONS[(that.dir + 3) % NB_DIRS][IDX_Y];
+            }
         });
     }
 
@@ -35,10 +71,12 @@ class Car {
         const delta = time - this.lastTime;
         this.lastTime = time;
 
+        this.action.process( time, delta );
+
         // -------------
         // Décelération.
         if( this.speed > this.minSpeed ) {
-            this.speed = Math.max( this.minSpeed, this.speed - this.break * delta );
+            this.speed = Math.max( this.minSpeed, this.speed - this.breakPower * delta );
         }
 
         // --------------------

@@ -1,0 +1,35 @@
+digraph dependencies {
+    "s3/app" -> "dom"
+
+    "s3/app" -> "s3/car"
+
+    "s3/app" -> "s3/tron.action"
+
+    "s3/app" -> "s3/polyline"
+    "s3/polyline" -> "common"
+    "s3/tron.action" -> "s3/tron.action.keyboard"
+
+    "s3/tron.action" -> "s3/tron.action.ai"
+    "s3/tron.action.ai" -> "common"
+    "s3/tron.action.keyboard" -> "common"
+    "s3/car" -> "s3/polyline"
+
+    "s3/car" -> "common"
+    "dom" -> "$"
+
+    "dom" -> "polyfill.classList"
+
+    "dom" -> "dom.theme"
+
+    "dom" -> "tfw.gestures"
+    "tfw.gestures" -> "$"
+
+    "tfw.gestures" -> "external.hammer"
+    "external.hammer" -> "$"
+    "dom.theme" -> "$"
+
+    "dom.theme" -> "tfw.color"
+    "tfw.color" -> "$"
+    "polyfill.classList" -> "$"
+
+}

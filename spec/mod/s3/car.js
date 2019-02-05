@@ -6,45 +6,82 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-/** @module s2/car */
-require('s2/car', function (require, module, exports) {
+/** @module s3/car */
+require('s3/car', function (require, module, exports) {
   var _ = function _() {
     return '';
   };
 
   "use strict";
 
-  var Polyline = require("s2/polyline"),
+  var Polyline = require("s3/polyline"),
       _require = require("common"),
       readonly = _require.readonly;
 
+  var IDX_X = 0;
+  var IDX_Y = 1;
   var MINUS_ONE = -1;
   var DIRECTIONS = [[0, MINUS_ONE], [1, 0], [0, 1], [MINUS_ONE, 0]];
+  var NB_DIRS = DIRECTIONS.length;
   var RIGHT = 1;
   var LEFT = 3;
   var DEFAULT_X = 0;
   var DEFAULT_Y = 256;
+  var MIN_SPEED = 0.050;
+  var MAX_SPEED = 0.250;
+  var BREAK = 0.0005;
 
   var Car =
   /*#__PURE__*/
   function () {
-    function Car(action) {
-      var x = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_X;
-      var y = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : DEFAULT_Y;
-      var dir = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : RIGHT;
+    function Car(_ref) {
+      var action = _ref.action,
+          _ref$x = _ref.x,
+          x = _ref$x === void 0 ? DEFAULT_X : _ref$x,
+          _ref$y = _ref.y,
+          y = _ref$y === void 0 ? DEFAULT_Y : _ref$y,
+          _ref$dir = _ref.dir,
+          dir = _ref$dir === void 0 ? RIGHT : _ref$dir,
+          _ref$color = _ref.color,
+          color = _ref$color === void 0 ? "cyan" : _ref$color,
+          _ref$minSpeed = _ref.minSpeed,
+          minSpeed = _ref$minSpeed === void 0 ? MIN_SPEED : _ref$minSpeed,
+          _ref$maxSpeed = _ref.maxSpeed,
+          maxSpeed = _ref$maxSpeed === void 0 ? MAX_SPEED : _ref$maxSpeed,
+          _ref$breakPower = _ref.breakPower,
+          breakPower = _ref$breakPower === void 0 ? BREAK : _ref$breakPower;
 
       _classCallCheck(this, Car);
 
+      var that = this;
       this.action = action;
-      this.walls = [x, y, x, y];
-      this.minSpeed = 0.050;
-      this.speed = this.minSpeed;
-      this.maxSpeed = 0.250;
-      this.break = 0.0005;
+      this.speed = minSpeed;
       this.lastTime = 0;
       this.dir = dir;
       readonly(this, {
-        polyline: new Polyline(x, y)
+        minSpeed: minSpeed,
+        maxSpeed: maxSpeed,
+        breakPower: breakPower,
+        color: color,
+        polyline: new Polyline(x, y),
+        vx: function vx() {
+          return DIRECTIONS[that.dir][IDX_X];
+        },
+        vy: function vy() {
+          return DIRECTIONS[that.dir][IDX_Y];
+        },
+        vxRight: function vxRight() {
+          return DIRECTIONS[(that.dir + 1) % NB_DIRS][IDX_X];
+        },
+        vyRight: function vyRight() {
+          return DIRECTIONS[(that.dir + 1) % NB_DIRS][IDX_Y];
+        },
+        vxLeft: function vxLeft() {
+          return DIRECTIONS[(that.dir + 3) % NB_DIRS][IDX_X];
+        },
+        vyLeft: function vyLeft() {
+          return DIRECTIONS[(that.dir + 3) % NB_DIRS][IDX_Y];
+        }
       });
     }
 
@@ -57,11 +94,12 @@ require('s2/car', function (require, module, exports) {
         }
 
         var delta = time - this.lastTime;
-        this.lastTime = time; // -------------
+        this.lastTime = time;
+        this.action.process(time, delta); // -------------
         // Décelération.
 
         if (this.speed > this.minSpeed) {
-          this.speed = Math.max(this.minSpeed, this.speed - this.break * delta);
+          this.speed = Math.max(this.minSpeed, this.speed - this.breakPower * delta);
         } // --------------------
         // Gestion des touches.
 
@@ -78,9 +116,7 @@ require('s2/car', function (require, module, exports) {
 
         if (action.actionAccel) {
           this.speed = this.maxSpeed;
-        } // ---------------------------------------
-        // Déplacement dans la direction courante.
-
+        }
 
         var dirV = DIRECTIONS[this.dir],
             vx = this.speed * delta * dirV[0],
