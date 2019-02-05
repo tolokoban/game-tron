@@ -24,16 +24,9 @@ class Car {
             this.lastTime = time;
             return;
         }
-        const delta = time - this.lastTime,
-              x0 = this.walls[0],
-              y0 = this.walls[1],
-              dirV = DIRECTIONS[this.dir],
-              x1 = x0 + this.speed * delta * dirV[0],
-              y1 = y0 + this.speed * delta * dirV[1];
-        this.x = x1;
-        this.y = y1;
-        this.walls[0] = x1;
-        this.walls[1] = y1;
+
+        const delta = time - this.lastTime;
+        this.lastTime = time;
 
         // -------------
         // Décelération.
@@ -55,12 +48,22 @@ class Car {
             this.speed = this.maxSpeed;
         }
 
-        this.lastTime = time;
+        // ---------------------------------
+        // Déplacement en fonction du temps.
+        const x0 = this.walls[0],
+              y0 = this.walls[1],
+              dirV = DIRECTIONS[this.dir],
+              x1 = x0 + this.speed * delta * dirV[0],
+              y1 = y0 + this.speed * delta * dirV[1];
+        this.x = x1;
+        this.y = y1;
+        this.walls[0] = x1;
+        this.walls[1] = y1;
     }
 
     addSegmentToWalls() {
         const [x, y] = this.walls;
-        this.walls.unshift( x, y );
+        this.walls.unshift( x, y );        
     }
 }
 

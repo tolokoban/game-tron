@@ -4,12 +4,14 @@ digraph dependencies {
     "s2/app" -> "s2/car"
 
     "s2/app" -> "s2/tron.action"
+
+    "s2/app" -> "s2/polyline"
+    "s2/polyline" -> "common"
     "s2/tron.action" -> "s2/tron.action.keyboard"
     "s2/tron.action.keyboard" -> "common"
     "s2/car" -> "s2/polyline"
 
     "s2/car" -> "common"
-    "s2/polyline" -> "common"
     "dom" -> "$"
 
     "dom" -> "polyfill.classList"

@@ -37,8 +37,7 @@ require('s2/polyline', function (require, module, exports) {
 
       _classCallCheck(this, Polyline);
 
-      var that = this; // On multiplie la capacité par 2 car il y a deux éléments par point (x et y).
-
+      // On multiplie la capacité par 2 car il y a deux éléments par point (x et y).
       var arr = new Float32Array(capacity << 1);
       arr[IDX_X0] = x;
       arr[IDX_Y0] = y;
@@ -51,7 +50,7 @@ require('s2/polyline', function (require, module, exports) {
       readonly(this, {
         length: function length() {
           // Diviser par deux.
-          return that._length >> 1;
+          return this._length >> 1;
         },
         firstX: function firstX() {
           return this._arr[this._start];
@@ -60,10 +59,10 @@ require('s2/polyline', function (require, module, exports) {
           return this._arr[this._start + 1];
         },
         lastX: function lastX() {
-          return this._arr[(this._start + this._length) % this._capacity];
+          return this._arr[(this._start + this._length - DIM2) % this._capacity];
         },
         lastY: function lastY() {
-          return this._arr[(this._start + this._length + 1) % this._capacity];
+          return this._arr[(this._start + this._length - DIM2 + 1) % this._capacity];
         }
       });
     }
@@ -78,7 +77,7 @@ require('s2/polyline', function (require, module, exports) {
       value: function foreachTail(callback) {
         var arr = this._arr;
 
-        for (var k = 2; k < this._length; k += 2) {
+        for (var k = DIM2; k < this._length; k += DIM2) {
           var index = (k + this._start) % this._length;
           callback(arr[index], arr[index + 1]);
         }
@@ -136,37 +135,80 @@ require('s2/polyline', function (require, module, exports) {
   module.exports = Polyline;
   /**
    * On recherche une collision entre un segment vertical et au moins un des murs horizonzaux.
+   * @this Polyline
    */
 
-  function collideVertical(x, y0, y1) {
+  function collideVertical(x, _y0, _y1) {
+    if (_y0 === _y1) {
+      // L'objet qui veut tester la collision est immobile.
+      return false;
+    }
+
     var arr = this._arr,
-        ya = Math.min(y0, y1),
-        yb = Math.max(y0, y1);
-    var xx0 = this.startX,
-        yy = this.startY;
+        idx = (this._start + DIM2) % this._capacity,
+        offset = this.firstX === arr[idx] ? DIM2 : 0,
+        y0 = Math.min(_y0, _y1),
+        y1 = Math.max(_y0, _y1);
 
-    for (var k = 2; k < this._length; k += 2) {
+    for (var k = offset; k < this._length; k += DIM2 + DIM2) {
       // On ne teste que les segments horizonzaux de murs.
-      var index = (k + this._start) % this._length,
-          xx1 = arr[index];
+      var idx0 = (k + this._start) % this._length,
+          xx0 = arr[idx0],
+          // Inutile de lire Y  pour les deux extrémités du segment : ce  sont les mêmes pour un
+      // segment horizontal.
+      yy = arr[idx0 + 1],
+          idx1 = (idx0 + DIM2) % this._length,
+          xx1 = arr[idx1];
 
-      if (xx1 === xx0) {
-        yy = arr[index + 1];
-        continue;
+      if (xx0 === xx1) {
+        // Ce mur est réduit à un point. On peut donc arrêter les tests.
+        break;
       }
 
       var xMin = Math.min(xx0, xx1),
           xMax = Math.max(xx0, xx1);
-      xx0 = xx1;
-      if (x < xMin || x > xMax) continue;
-      if (yy < ya || yy > yb) continue;
+      if (x <= xMin || x >= xMax) continue;
+      if (yy < y0 || yy > y1) continue;
       return true;
     }
 
     return false;
   }
 
-  function collideHorizontal(y, x0, y0) {
+  function collideHorizontal(y, _x0, _x1) {
+    if (_x0 === _x1) {
+      // L'objet qui veut tester la collision est immobile.
+      return false;
+    }
+
+    var arr = this._arr,
+        idx = (this._start + DIM2 + 1) % this._capacity,
+        offset = this.firstY === arr[idx] ? DIM2 : 0,
+        x0 = Math.min(_x0, _x1),
+        x1 = Math.max(_x0, _x1);
+
+    for (var k = offset; k < this._length; k += DIM2 + DIM2) {
+      // On ne teste que les segments horizonzaux de murs.
+      var idx0 = (k + this._start) % this._length,
+          yy0 = arr[idx0 + 1],
+          // Inutile de lire X  pour les deux extrémités du segment : ce  sont les mêmes pour un
+      // segment vertical.
+      xx = arr[idx0],
+          idx1 = (idx0 + DIM2) % this._length,
+          yy1 = arr[idx1 + 1];
+
+      if (yy0 === yy1) {
+        // Ce mur est réduit à un point. On peut donc arrêter les tests.
+        break;
+      }
+
+      var yMin = Math.min(yy0, yy1),
+          yMax = Math.max(yy0, yy1);
+      if (y <= yMin || y >= yMax) continue;
+      if (xx < x0 || xx > x1) continue;
+      return true;
+    }
+
     return false;
   }
 

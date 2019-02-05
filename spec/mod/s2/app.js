@@ -42,10 +42,22 @@ require('s2/app', function (require, module, exports) {
 
       if (car.polyline.collide(x0, y0, x1, y1)) {
         car.isDead = true;
+        console.log("DEAD!");
       }
     }
 
     window.requestAnimationFrame(anim);
+
+    var Polyline = require("s2/polyline");
+
+    var poly = new Polyline(0, 100);
+    poly.move(100, 0);
+    poly.add();
+    poly.move(0, -50);
+    poly.add();
+    poly.move(-50, 0);
+    var a = poly.collide(75, 40, 75, 60);
+    console.info("[s2/app] a=", a);
   };
 
   module.exports._ = _;

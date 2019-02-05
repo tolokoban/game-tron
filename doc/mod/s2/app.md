@@ -6,3 +6,4 @@
 * [dom](dom.md)
 * [s2/car](s2/car.md)
 * [s2/tron.action](s2/tron.action.md)
+* [s2/polyline](s2/polyline.md)

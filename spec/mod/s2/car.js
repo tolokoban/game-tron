@@ -56,11 +56,8 @@ require('s2/car', function (require, module, exports) {
           return;
         }
 
-        var delta = time - this.lastTime,
-            dirV = DIRECTIONS[this.dir],
-            vx = this.speed * delta * dirV[0],
-            vy = this.speed * delta * dirV[1];
-        this.polyline.move(vx, vy); // -------------
+        var delta = time - this.lastTime;
+        this.lastTime = time; // -------------
         // Décelération.
 
         if (this.speed > this.minSpeed) {
@@ -83,7 +80,10 @@ require('s2/car', function (require, module, exports) {
           this.speed = this.maxSpeed;
         }
 
-        this.lastTime = time;
+        var dirV = DIRECTIONS[this.dir],
+            vx = this.speed * delta * dirV[0],
+            vy = this.speed * delta * dirV[1];
+        this.polyline.move(vx, vy);
       }
     }]);
 
