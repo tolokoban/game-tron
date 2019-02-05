@@ -55,7 +55,8 @@ class Car {
             this.speed = this.maxSpeed;
         }
 
-
+        // ---------------------------------------
+        // Déplacement dans la direction courante.
         const dirV = DIRECTIONS[this.dir],
               vx = this.speed * delta * dirV[0],
               vy = this.speed * delta * dirV[1];
