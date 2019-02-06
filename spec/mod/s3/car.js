@@ -64,6 +64,12 @@ require('s3/car', function (require, module, exports) {
         breakPower: breakPower,
         color: color,
         polyline: new Polyline(x, y),
+        dirRight: function dirRight() {
+          return (that.dir + RIGHT) % NB_DIRS;
+        },
+        dirLeft: function dirLeft() {
+          return (that.dir + LEFT) % NB_DIRS;
+        },
         vx: function vx() {
           return DIRECTIONS[that.dir][IDX_X];
         },
@@ -71,16 +77,16 @@ require('s3/car', function (require, module, exports) {
           return DIRECTIONS[that.dir][IDX_Y];
         },
         vxRight: function vxRight() {
-          return DIRECTIONS[(that.dir + 1) % NB_DIRS][IDX_X];
+          return DIRECTIONS[that.dirRight][IDX_X];
         },
         vyRight: function vyRight() {
-          return DIRECTIONS[(that.dir + 1) % NB_DIRS][IDX_Y];
+          return DIRECTIONS[that.dirRight][IDX_Y];
         },
         vxLeft: function vxLeft() {
-          return DIRECTIONS[(that.dir + 3) % NB_DIRS][IDX_X];
+          return DIRECTIONS[that.dirLeft][IDX_X];
         },
         vyLeft: function vyLeft() {
-          return DIRECTIONS[(that.dir + 3) % NB_DIRS][IDX_Y];
+          return DIRECTIONS[that.dirLeft][IDX_Y];
         }
       });
     }

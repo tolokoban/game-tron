@@ -14,21 +14,40 @@ exports.start = function() {
               x: 12,
               y: 200,
               dir: 1,
-              color: "#f80"
+              color: "#ff0"
           } ),
-          ennemy = new Car( {
+          ennemy1 = new Car( {
               action: Action.create({ type: "ai", targets: [player] }),
+              reaction: 100,
               x: 500,
               y: 312,
               dir: 3,
-              color: "#789"
+              color: "#0ff"
           } ),
-          cars = [player, ennemy],
+          ennemy2 = new Car( {
+              action: Action.create({ type: "ai", targets: [player] }),
+              reaction: 200,
+              x: 256,
+              y: 12,
+              dir: 2,
+              color: "#f0f"
+          } ),
+          ennemy3 = new Car( {
+              action: Action.create({ type: "ai", targets: [player] }),
+              reaction: 300,
+              x: 312,
+              y: 500,
+              dir: 0,
+              color: "#f84"
+          } ),
+          cars = [player, ennemy1, ennemy2, ennemy3],
           boundaries = createBoundaries();
 
-    ennemy.action.car = ennemy;
-    ennemy.action.cars = cars;
-    ennemy.action.boundaries = boundaries;
+    for( const ennemy of [ennemy1, ennemy2, ennemy3]) {
+        ennemy.action.car = ennemy;
+        ennemy.action.cars = cars;
+        ennemy.action.boundaries = boundaries;
+    }
 
     canvas.setAttribute( "width", canvas.clientWidth );
     canvas.setAttribute( "height", canvas.clientHeight );

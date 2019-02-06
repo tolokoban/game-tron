@@ -23,23 +23,52 @@ require('s3/app', function (require, module, exports) {
       x: 12,
       y: 200,
       dir: 1,
-      color: "#f80"
+      color: "#ff0"
     }),
-        ennemy = new Car({
+        ennemy1 = new Car({
       action: Action.create({
         type: "ai",
         targets: [player]
       }),
+      reaction: 100,
       x: 500,
       y: 312,
       dir: 3,
-      color: "#789"
+      color: "#0ff"
     }),
-        cars = [player, ennemy],
+        ennemy2 = new Car({
+      action: Action.create({
+        type: "ai",
+        targets: [player]
+      }),
+      reaction: 200,
+      x: 256,
+      y: 12,
+      dir: 2,
+      color: "#f0f"
+    }),
+        ennemy3 = new Car({
+      action: Action.create({
+        type: "ai",
+        targets: [player]
+      }),
+      reaction: 300,
+      x: 312,
+      y: 500,
+      dir: 0,
+      color: "#f84"
+    }),
+        cars = [player, ennemy1, ennemy2, ennemy3],
         boundaries = createBoundaries();
-    ennemy.action.car = ennemy;
-    ennemy.action.cars = cars;
-    ennemy.action.boundaries = boundaries;
+    var _arr = [ennemy1, ennemy2, ennemy3];
+
+    for (var _i = 0; _i < _arr.length; _i++) {
+      var ennemy = _arr[_i];
+      ennemy.action.car = ennemy;
+      ennemy.action.cars = cars;
+      ennemy.action.boundaries = boundaries;
+    }
+
     canvas.setAttribute("width", canvas.clientWidth);
     canvas.setAttribute("height", canvas.clientHeight);
 
@@ -70,8 +99,8 @@ require('s3/app', function (require, module, exports) {
         }
       }
 
-      for (var _i = 0; _i < cars.length; _i++) {
-        var car = cars[_i];
+      for (var _i2 = 0; _i2 < cars.length; _i2++) {
+        var car = cars[_i2];
         if (car.isDead) continue;
         paintPolyline(ctx, car.polyline, car.color);
         var x0 = car.polyline.lastX,
@@ -80,8 +109,8 @@ require('s3/app', function (require, module, exports) {
         var x1 = car.polyline.lastX,
             y1 = car.polyline.lastY;
 
-        for (var _i2 = 0; _i2 < cars.length; _i2++) {
-          var obstacle = cars[_i2];
+        for (var _i3 = 0; _i3 < cars.length; _i3++) {
+          var obstacle = cars[_i3];
           if (obstacle.isDead) continue;
 
           if (obstacle.polyline.collide(x0, y0, x1, y1)) {

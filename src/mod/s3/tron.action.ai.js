@@ -8,9 +8,31 @@ const NONE = 0,
       RIGHT = 2,
       ACCEL = 3;
 
+const DEFAULT_REACTION_TIME = 150,
+      DEFAULT_FRONT_RADAR = 10,
+      DEFAULT_SIDE_RADAR = 20;
+
+const DICE_MAX_VALUE = 1000,
+      HALF = 0.5;
+
 
 class Ai {
-    constructor({ car, cars, boundaries }) {
+
+    /**
+     * @param {array}  cars - Tableau des  véhicules (objets de  type Car). Utile pour  éviter leurs
+     * murs.
+     * @param {array} boundaries  - Tableau des murs  d'enceinte qu'il faut éviter  aussi (objets de
+     * type Polyline).
+     * @param {int} reaction - Temps minimal entre deux prises de décision (en millisecondes).
+     */
+    constructor({
+        car,
+        cars,
+        boundaries,
+        reaction = DEFAULT_REACTION_TIME,
+        frontRadar = DEFAULT_FRONT_RADAR,
+        sideRadar = DEFAULT_SIDE_RADAR
+    }) {
         const that = this;
 
         this.status = NONE;
@@ -18,8 +40,12 @@ class Ai {
         this.cars = cars;
         this.boundaries = boundaries;
         this.lastTime = 0;
-        
+
         readonly( this, {
+            reaction,
+            frontRadar,
+            sideRadar,
+
             actionRight() {
                 return that.status === RIGHT;
             },
@@ -33,46 +59,49 @@ class Ai {
     }
 
     process( time ) {
-        if ( time - this.lastTime < 100 ) {
+        if ( time - this.lastTime < this.reaction ) {
             this.status = NONE;
             return;
         }
-        
+
         const car = this.car,
               x0 = car.polyline.lastX,
               y0 = car.polyline.lastY,
-              x1 = x0 + car.vx * 10,
-              y1 = y0 + car.vy * 10;
+              x1 = x0 + car.vx * this.frontRadar,
+              y1 = y0 + car.vy * this.frontRadar;
 
         if( this.collide( x0, y0, x1, y1 ) ) {
-            const rnd = Math.random() * 1000;
-            if( rnd < 500 ) {
-                const x1R = x0 + car.vxRight * 15,
-                      y1R = y0 + car.vyRight * 15;
-                this.status = this.collide( x0, y0, x1R, y1R ) ? LEFT : RIGHT;
-            } else {
-                const x1L = x0 + car.vxLeft * 15,
-                      y1L = y0 + car.vyLeft * 15;
-                this.status = this.collide( x0, y0, x1L, y1L ) ? LEFT : RIGHT;
-            }
+            if( rollDice() < DICE_MAX_VALUE * HALF ) this.turnRightIfSafe();
+            else this.turnLeftIfSafe();
         } else {
-            this.status = NONE;
-
-            const rnd = Math.random() * 1000;
-            if( rnd > 995 ) {
-                this.status = RIGHT;
-            } else if( rnd > 990 ) {
-                this.status = LEFT;
-            } else if( rnd > 988 ) {
-                this.status = ACCEL;
-            } else {
-                this.status = NONE;
-            }
+            const rnd = rollDice();
+            if( rnd < 3 ) this.turnRightIfSafe();
+            else if( rnd < 6 ) this.turnLeftIfSafe();
+            else if( rnd < 8 ) this.status = ACCEL;
+            else this.status = NONE;
         }
 
         if( this.status !== NONE ) {
             this.lastTime = time;
         }
+    }
+
+    turnRightIfSafe() {
+        const car = this.car,
+              x0 = car.polyline.lastX,
+              y0 = car.polyline.lastY,
+              x1R = x0 + car.vxRight * this.sideRadar,
+              y1R = y0 + car.vyRight * this.sideRadar;
+        this.status = this.collide( x0, y0, x1R, y1R ) ? NONE : RIGHT;
+    }
+
+    turnLeftIfSafe() {
+        const car = this.car,
+              x0 = car.polyline.lastX,
+              y0 = car.polyline.lastY,
+              x1L = x0 + car.vxLeft * this.sideRadar,
+              y1L = y0 + car.vyLeft * this.sideRadar;
+        this.status = this.collide( x0, y0, x1L, y1L ) ? NONE : LEFT;
     }
 
     collide( x0, y0, x1, y1 ) {
@@ -92,6 +121,10 @@ class Ai {
     }
 }
 
+
+function rollDice() {
+    return Math.random() * DICE_MAX_VALUE;
+}
 
 exports.create = function( args ) {
     return new Ai( args );

@@ -43,7 +43,11 @@ On ajoute le test de collision avec sa propre trainée. Si on percute son propre
 ## Sprint 3
 
 Création d'une intelligence artificielle pour ajouter un ennemi.
+Les ennemis sont capables d'éviter les murs et peuvent tourner ou accélérer de façon aléatoire.
+
+* [Le résultat](https://tolokoban.github.io/game-tron/s3.html).
+* [Les sources](https://github.com/tolokoban/game-tron/tree/master/src/mod/s3).
 
 ## Sprint 4
 
-Première représentation 3D où on ne voit que les murs.
+Première représentation 3D où on ne voit que les murs des véhicules.

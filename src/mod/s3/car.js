@@ -41,6 +41,12 @@ class Car {
             breakPower,
             color,
             polyline: new Polyline( x, y ),
+            dirRight() {
+                return (that.dir + RIGHT) % NB_DIRS;
+            },
+            dirLeft() {
+                return (that.dir + LEFT) % NB_DIRS;
+            },
             vx() {
                 return DIRECTIONS[that.dir][IDX_X];
             },
@@ -48,16 +54,16 @@ class Car {
                 return DIRECTIONS[that.dir][IDX_Y];
             },
             vxRight() {
-                return DIRECTIONS[(that.dir + 1) % NB_DIRS][IDX_X];
+                return DIRECTIONS[that.dirRight][IDX_X];
             },
             vyRight() {
-                return DIRECTIONS[(that.dir + 1) % NB_DIRS][IDX_Y];
+                return DIRECTIONS[that.dirRight][IDX_Y];
             },
             vxLeft() {
-                return DIRECTIONS[(that.dir + 3) % NB_DIRS][IDX_X];
+                return DIRECTIONS[that.dirLeft][IDX_X];
             },
             vyLeft() {
-                return DIRECTIONS[(that.dir + 3) % NB_DIRS][IDX_Y];
+                return DIRECTIONS[that.dirLeft][IDX_Y];
             }
         });
     }
