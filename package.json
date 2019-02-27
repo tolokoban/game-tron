@@ -9,8 +9,8 @@
     "homepage": "https://tolokoban.github.io/game-tron/index.html",
     "license": "GPL-3.0",
     "scripts": {
-        "test": "node node_modules/karma/bin/karma start karma.conf.js",
-        "test:dbg": "node --debug-brk node_modules/karma/bin/karma start karma.conf.js",
+        "test": "node node_modules/karma/bin/karma start karma.conf.js --colors",
+        "test:dbg": "node --inspect-brk node_modules/karma/bin/karma start karma.conf.js",
         "debug": "node toloframework/bin/tfw.js build debug test",
         "watch": "node toloframework/bin/tfw.js build debug test watch",
         "clean": "node toloframework/bin/tfw.js clean",
@@ -55,12 +55,14 @@
         "zlib"
     ],
     "dependencies": {
-        "jasmine": "^2.99.0",
-        "jasmine-core": "^2.99.1",
-        "karma": "^2.0.2",
+        "toloframework": "^0.49"
+    },
+    "devDependencies": {
+        "jasmine-core": "^3.2.1",
+        "karma": "^3.0.0",
         "karma-chrome-launcher": "^2.2.0",
         "karma-firefox-launcher": "^1.1.0",
         "karma-jasmine": "^1.1.2",
-        "toloframework": "^0.49"
+        "karma-jasmine-html-reporter": "^1.4.0"
     }
 }

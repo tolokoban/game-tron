@@ -50,4 +50,8 @@ Les ennemis sont capables d'éviter les murs et peuvent tourner ou accélérer d
 
 ## Sprint 4
 
+Préparation d'une classe qui gère les murs pour les collisions et le futur affichage en 3D.
+
+## Sprint 5
+
 Première représentation 3D où on ne voit que les murs des véhicules.
