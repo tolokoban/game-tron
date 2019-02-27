@@ -1,6 +1,6 @@
 "use strict";
 
-const Polyline = require("s4/polyline");
+const Polyline = require("s4.polyline");
 
 const IDX_X00 = 0,
       IDX_Y00 = 1,

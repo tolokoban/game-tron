@@ -1,11 +1,11 @@
 digraph dependencies {
-    "s1/app" -> "dom"
+    "s1.app" -> "dom"
 
-    "s1/app" -> "s1/car"
+    "s1.app" -> "s1/car"
 
-    "s1/app" -> "s1/tron.action"
-    "s1/tron.action" -> "s1/tron.action.keyboard"
-    "s1/tron.action.keyboard" -> "common"
+    "s1.app" -> "s1/tron.action"
+    "s1.tron.action" -> "s1/tron.action.keyboard"
+    "s1.tron.action.keyboard" -> "common"
     "dom" -> "$"
 
     "dom" -> "polyfill.classList"
