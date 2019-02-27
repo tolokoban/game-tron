@@ -1,6 +1,6 @@
 "use strict";
 
-const Polyline = require("s4/polyline"),
+const Polyline = require("s4.polyline"),
       { readonly } = require("common");
 
 const IDX_X = 0;

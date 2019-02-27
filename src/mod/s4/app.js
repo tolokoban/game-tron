@@ -1,9 +1,9 @@
 "use strict";
 
 const Dom = require("dom"),
-      Car = require("s4/car"),
-      Action = require("s4/tron.action"),
-      Polyline = require("s4/polyline");
+      Car = require("s4.car"),
+      Action = require("s4.tron.action"),
+      Polyline = require("s4.polyline");
 
 
 exports.start = function() {
