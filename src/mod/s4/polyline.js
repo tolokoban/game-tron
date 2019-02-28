@@ -76,12 +76,12 @@ class Polyline {
 
       lastX() {
         const idx = that._length - BLOCK_SIZE + that._start;
-        return that._arr[(idx + IDX_X00) % that._capacity];
+        return that._arr[(idx + IDX_X10) % that._capacity];
       },
 
       lastY() {
         const idx = that._length - BLOCK_SIZE + that._start;
-        return that._arr[(idx + IDX_Y00) % that._capacity];
+        return that._arr[(idx + IDX_Y10) % that._capacity];
       }
     });
   }

@@ -51,6 +51,13 @@ Les ennemis sont capables d'éviter les murs et peuvent tourner ou accélérer d
 ## Sprint 4
 
 Préparation d'une classe qui gère les murs pour les collisions et le futur affichage en 3D.
+Rien ne change au niveau du jeu, mais c'est justement ce qu'on cherche : pouvoir modifier un composant central sans que ça se voit.
+
+La classe en question est [Polyline](https://github.com/tolokoban/game-tron/tree/master/src/mod/s4/polyline.js)
+et pour être sûr que'elle fait bien ce qu'on veut, on y a ajouté un [test automatique](https://github.com/tolokoban/game-tron/tree/master/spec/s4.polyline.spec.js).
+
+* [Le résultat](https://tolokoban.github.io/game-tron/s4.html).
+* [Les sources](https://github.com/tolokoban/game-tron/tree/master/src/mod/s4).
 
 ## Sprint 5
 
