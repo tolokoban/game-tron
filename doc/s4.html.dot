@@ -1,18 +1,18 @@
 digraph dependencies {
     "s4.app" -> "dom"
 
-    "s4.app" -> "s4/car"
+    "s4.app" -> "s4.car"
 
-    "s4.app" -> "s4/tron.action"
+    "s4.app" -> "s4.tron.action"
 
-    "s4.app" -> "s4/polyline"
+    "s4.app" -> "s4.polyline"
     "s4.polyline" -> "common"
-    "s4.tron.action" -> "s4/tron.action.keyboard"
+    "s4.tron.action" -> "s4.tron.action.keyboard"
 
-    "s4.tron.action" -> "s4/tron.action.ai"
+    "s4.tron.action" -> "s4.tron.action.ai"
     "s4.tron.action.ai" -> "common"
     "s4.tron.action.keyboard" -> "common"
-    "s4.car" -> "s4/polyline"
+    "s4.car" -> "s4.polyline"
 
     "s4.car" -> "common"
     "dom" -> "$"
