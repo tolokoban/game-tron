@@ -1,0 +1,6 @@
+{
+    var: {
+        vert: standard-cube.vert
+        frag: standard-cube.frag
+    }
+}

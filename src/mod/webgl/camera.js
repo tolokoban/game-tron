@@ -1,7 +1,7 @@
 "use strict";
 
 
-const MathGL = require("webgl/math").m4;
+const MathGL = require("webgl.math").m4;
 
 const HALF_TURN_IN_DEG = 180,
       DEG_TO_RAD = Math.PI / 180;
@@ -9,20 +9,26 @@ const HALF_TURN_IN_DEG = 180,
 
 class Camera {
     /**
-     * @param {float} angle - Field of view in degrees.
-     * @param {number} aspect - (width / height) of the canvas.
-     * @param {number} near - Clip every Z lower than `near`.
-     * @param {number} far - Clip every Z greater than `far`.
+     * @param {float} _args.angle - Field of view in degrees.
+     * @param {number} _args.aspect - (width / height) of the canvas.
+     * @param {number} _args.near - Clip every Z lower than `near`.
+     * @param {number} _args.far - Clip every Z greater than `far`.
      */
-    constructor({ angle: 35, aspect: 1, near: 0.5, far: 100}) {
-        const that = this;
+    constructor(_args) {
+        const that = this,
+              args = typeof _args === 'undefined' ? {} : _args;
 
-        this._angle = angle;
-        this._aspect = aspect;
-        this._near = near;
-        this._far = far;
+        if( typeof args.angle === 'undefined' ) args.angle = 35;
+        if( typeof args.aspect === 'undefined' ) args.aspect = 1;
+        if( typeof args.near === 'undefined' ) args.near = 0.5;
+        if( typeof args.far === 'undefined' ) args.far = 100;
+
+        this._angle = args.angle;
+        this._aspect = args.aspect;
+        this._near = args.near;
+        this._far = args.far;        
         this._perspectiveIsOutOfDate = false;
-        this._perspective = MathGL.perspective( angle * DEG_TO_RAD, aspect, near, far );
+        this._perspective = MathGL.perspective( args.angle * DEG_TO_RAD, args.aspect, args.near, args.far );
 
         this._transform = MathGL.identity();
 

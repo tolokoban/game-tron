@@ -25,7 +25,7 @@
         "compile": {
             "type": "desktop",
             "files": [
-                "\\.html$"
+                "s5.html$"
             ]
         },
         "output": "www"

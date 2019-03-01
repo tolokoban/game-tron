@@ -1,4 +1,4 @@
-exports.config={"name":"\"game-tron\"","description":"\"Step by step making-of tron like game.\"","author":"\"tolokoban\"","version":"\"0.0.6\"","major":"0","minor":"0","revision":"6","date":"2019-02-27T16:49:15.958Z","consts":{}};
+exports.config={"name":"\"game-tron\"","description":"\"Step by step making-of tron like game.\"","author":"\"tolokoban\"","version":"\"0.0.6\"","major":"0","minor":"0","revision":"6","date":"2019-03-01T15:12:19.439Z","consts":{}};
 "use strict";
 
 const ZERO_CHAR_CODE = '0'.charCodeAt( 0 );
