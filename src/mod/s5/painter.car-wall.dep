@@ -1,6 +1,0 @@
-{
-    var: {
-         vert: painter.car-wall.vert
-         frag: painter.car-wall.frag
-    }   
-}

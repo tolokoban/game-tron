@@ -61,6 +61,9 @@ class Polyline {
       data() {
         return arr;
       },
+      capacity() {
+        return capacity;
+      },
       length() {
         // Diviser par deux.
         return that._length;

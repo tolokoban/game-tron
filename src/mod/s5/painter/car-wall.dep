@@ -1,0 +1,6 @@
+{
+    var: {
+        vert: car-wall.vert
+        frag: car-wall.frag
+    }
+}
