@@ -9,10 +9,6 @@
     "512": "/icon-512.png"
   },
   "name": "game-tron",
-<<<<<<< HEAD
-  "version": "0.0.8",
-=======
-  "version": "0.0.6",
->>>>>>> de2333e77e77f1037fd6be6309f12967aec0b862
+  "version": "0.0.9",
   "description": "Step by step making-of tron like game."
 }
