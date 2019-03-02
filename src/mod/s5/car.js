@@ -8,13 +8,13 @@ const IDX_Y = 1;
 const MINUS_ONE = -1;
 const DIRECTIONS = [ [0, MINUS_ONE], [1, 0], [0, 1], [MINUS_ONE, 0] ];
 const NB_DIRS = DIRECTIONS.length;
-const RIGHT = 1;
-const LEFT = 3;
+const RIGHT = 3;
+const LEFT = 1;
 const DEFAULT_X = 0;
-const DEFAULT_Y = 256;
-const MIN_SPEED = 0.050;
-const MAX_SPEED = 0.250;
-const BREAK = 0.0005;
+const DEFAULT_Y = 0;
+const MIN_SPEED = 0.01;
+const MAX_SPEED = 0.05;
+const BREAK = 0.00005;
 
 
 class Car {

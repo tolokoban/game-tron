@@ -1,6 +1,6 @@
 "use strict";
 
-const Keyboard = require( "s1/tron.action.keyboard" );
+const Keyboard = require( "s1.tron.action.keyboard" );
 
 exports.NONE = Keyboard.NONE;
 exports.LEFT = Keyboard.LEFT;

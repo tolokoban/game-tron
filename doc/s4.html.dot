@@ -1,31 +1,20 @@
 digraph dependencies {
-    "s5.app" -> "dom"
+    "s4.app" -> "dom"
 
-    "s5.app" -> "s5.car"
+    "s4.app" -> "s4.car"
 
-    "s5.app" -> "s5.tron.action"
+    "s4.app" -> "s4.tron.action"
 
-    "s5.app" -> "s5.polyline"
+    "s4.app" -> "s4.polyline"
+    "s4.polyline" -> "common"
+    "s4.tron.action" -> "s4.tron.action.keyboard"
 
-    "s5.app" -> "webgl.resize"
+    "s4.tron.action" -> "s4.tron.action.ai"
+    "s4.tron.action.ai" -> "common"
+    "s4.tron.action.keyboard" -> "common"
+    "s4.car" -> "s4.polyline"
 
-    "s5.app" -> "webgl.camera"
-
-    "s5.app" -> "webgl.painter.standard-cube"
-    "webgl.painter.standard-cube" -> "webgl.program"
-    "webgl.program" -> "$"
-    "webgl.camera" -> "webgl.math"
-    "webgl.math" -> "$"
-    "webgl.resize" -> "$"
-    "s5.polyline" -> "common"
-    "s5.tron.action" -> "s5.tron.action.keyboard"
-
-    "s5.tron.action" -> "s5.tron.action.ai"
-    "s5.tron.action.ai" -> "common"
-    "s5.tron.action.keyboard" -> "common"
-    "s5.car" -> "s5.polyline"
-
-    "s5.car" -> "common"
+    "s4.car" -> "common"
     "dom" -> "$"
 
     "dom" -> "polyfill.classList"

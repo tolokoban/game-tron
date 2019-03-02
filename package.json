@@ -25,12 +25,12 @@
         "compile": {
             "type": "desktop",
             "files": [
-                "s5.html$"
+                "\\.html$"
             ]
         },
         "output": "www"
     },
-    "version": "0.0.6",
+    "version": "0.0.8",
     "reservedModules": [
         "fs",
         "path",

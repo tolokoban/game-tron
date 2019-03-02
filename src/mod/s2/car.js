@@ -1,6 +1,6 @@
 "use strict";
 
-const Polyline = require("s2/polyline"),
+const Polyline = require("s2.polyline"),
       { readonly } = require("common");
 
 const MINUS_ONE = -1;

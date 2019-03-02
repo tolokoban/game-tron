@@ -61,4 +61,9 @@ et pour être sûr que'elle fait bien ce qu'on veut, on y a ajouté un [test aut
 
 ## Sprint 5
 
-Première représentation 3D où on ne voit que les murs des véhicules.
+Première représentation 3D où on ne voit que les murs des véhicules et l'enceinte.
+Aucune optimisation n'a été faite pour le moment.
+
+* [Le résultat](https://tolokoban.github.io/game-tron/s4.html).
+* [Les sources](https://github.com/tolokoban/game-tron/tree/master/src/mod/s4).
+

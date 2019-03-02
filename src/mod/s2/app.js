@@ -1,8 +1,8 @@
 "use strict";
 
 const Dom = require("dom"),
-      Car = require("s2/car"),
-      Action = require("s2/tron.action");
+      Car = require("s2.car"),
+      Action = require("s2.tron.action");
 
 
 exports.start = function() {
@@ -42,7 +42,7 @@ exports.start = function() {
 
     window.requestAnimationFrame( anim );
 
-    const Polyline = require("s2/polyline");
+    const Polyline = require("s2.polyline");
     const poly = new Polyline(0, 100);
     poly.move(100, 0);
     poly.add();

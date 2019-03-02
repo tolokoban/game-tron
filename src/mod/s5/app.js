@@ -6,49 +6,51 @@ const Dom = require("dom"),
       Polyline = require("s5.polyline"),
       CarWall= require("s5.painter.car-wall"),
       Resize = require("webgl.resize"),
-      Camera= require("webgl.camera"),
-      StandardCube= require("webgl.painter.standard-cube");
+      Camera= require("webgl.camera");
 
 
 exports.start = function() {
   const canvas = Dom("canvas"),
         gl = canvas.getContext( "webgl", {} ),
         camera = new Camera(),
-        cube = new StandardCube( gl ),
         player = new Car( {
           action: Action.create({ type: "keyboard" }),
-          x: 0,
+          x: -25,
           y: 0,
           dir: 1,
           color: new Float32Array([1,1,0])
         } ),
         ennemy1 = new Car( {
           action: Action.create({ type: "ai", targets: [player] }),
-          reaction: 100,
-          x: 500 - 256,
-          y: 312 - 256,
+          reaction: 10,
+          x: 25,
+          y: 7,
           dir: 3,
           color: new Float32Array([0,1,1])
         } ),
         ennemy2 = new Car( {
           action: Action.create({ type: "ai", targets: [player] }),
-          reaction: 200,
-          x: 256 - 256,
-          y: 12 - 256,
+          reaction: 20,
+          x: 0,
+          y: -24,
           dir: 2,
           color: new Float32Array([1,0,1])
         } ),
         ennemy3 = new Car( {
           action: Action.create({ type: "ai", targets: [player] }),
-          reaction: 300,
-          x: 312 - 256,
-          y: 500 - 256,
+          reaction: 30,
+          x: 6,
+          y: -24,
           dir: 0,
           color: new Float32Array([1, 0.5, 0.25])
         } ),
         cars = [player, ennemy1, ennemy2, ennemy3],
-        carPainters = cars.map( car => new CarWall( gl, car.polyline, car.color ) ),
-        boundaries = createBoundaries();  
+        boundaries = createBoundaries(),
+        boundaryPainter = new CarWall( gl, boundaries[0], new Float32Array([.3, .3, .3]) );
+
+  cars.forEach(function (car) {
+    car.painter = new CarWall( gl, car.polyline, car.color );
+  });
 
   for( const ennemy of [ennemy1, ennemy2, ennemy3]) {
     ennemy.action.car = ennemy;
@@ -56,35 +58,41 @@ exports.start = function() {
     ennemy.action.boundaries = boundaries;
   }
 
-  canvas.setAttribute( "width", canvas.clientWidth );
-  canvas.setAttribute( "height", canvas.clientHeight );
-
-  cube.translateTo( 0, 0, 0 );
   gl.clearColor( 0.3, 0.3, 0.3, 1);
-    
+
+  let lastTime = 0;
+  let framesCount = 0;
+  const fps = document.getElementById("FPS");
+
+  gl.enable(gl.DEPTH_TEST);
+  gl.depthFunc( gl.LESS );
+
   function anim( time ) {
     window.requestAnimationFrame( anim );
 
-    if( Resize( gl ) ) {
+    framesCount++;
+    if( framesCount > 15 ) {
+      framesCount = 0;
+      fps.textContent = `${Math.floor( 0.5 + (16000 / (time - lastTime)))} FPS`;
+      lastTime = time;
+    }
+
+    if( Resize( gl, 1 ) ) {
       camera.aspect = gl.drawingBufferWidth / gl.drawingBufferHeight;
     }
-    gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
-    
-    const lat = .2 + Math.abs(Math.cos( time * 0.00009 )) * .5;
+
+    //gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
+
+    const lat = .35 + Math.abs(Math.cos( time * 0.00009 )) * .3;
     const lng = time * 0.0001;
 
-    camera.orbit( 0,0,0, 500, lat, lng );
-    cube.paint( camera.matrix );
+    camera.orbit( player.polyline.lastX,player.polyline.lastY,0, 50, lat, lng );
 
-    carPainters.forEach(function (painter) {
-      painter.paint( camera.matrix );
-    });
-
-    /*
-    for( const boundary of boundaries ) {
-      paintPolyline( gl, boundary, "#fff" );
+    boundaryPainter.paint( camera.matrix );
+    for( const car of cars) {
+      if( car.isDead ) continue;
+      car.painter.paint( camera.matrix );
     }
-    */
 
     for( const car of cars) {
       if( car.isDead ) continue;
@@ -119,33 +127,33 @@ exports.start = function() {
 };
 
 
-function createBoundaries( w = 512, h = 512 ) {
+function createBoundaries( w = 60, h = 60 ) {
   const x0 = w / 2,
         y0 = h / 2,
-        polyline = new Polyline( 5 - x0, 55 - y0 );
-  polyline.move( 0, h - 110 );
+        polyline = new Polyline( - x0, 5 - y0 );
+  polyline.move( 0, h - 11 );
   polyline.add();
-  polyline.move( 50, 0 );
+  polyline.move( 5, 0 );
   polyline.add();
-  polyline.move( 0, 50 );
+  polyline.move( 0, 5 );
   polyline.add();
-  polyline.move( w - 110, 0 );
+  polyline.move( w - 11, 0 );
   polyline.add();
-  polyline.move( 0, -50 );
+  polyline.move( 0, -5 );
   polyline.add();
-  polyline.move( 50, 0 );
+  polyline.move( 5, 0 );
   polyline.add();
-  polyline.move( 0, 110 - h );
+  polyline.move( 0, 11 - h );
   polyline.add();
-  polyline.move( -50, 0 );
+  polyline.move( -5, 0 );
   polyline.add();
-  polyline.move( 0, -50 );
+  polyline.move( 0, -5 );
   polyline.add();
-  polyline.move( 110 - w, 0 );
+  polyline.move( 11 - w, 0 );
   polyline.add();
-  polyline.move( 0, 50 );
+  polyline.move( 0, 5 );
   polyline.add();
-  polyline.move( -50, 0 );
+  polyline.move( -5, 0 );
 
   return [polyline];
 }

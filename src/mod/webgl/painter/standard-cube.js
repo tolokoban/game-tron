@@ -187,8 +187,6 @@ function createCanvas( size ) {
   ctx.fillText( "+Z", size * .5, size * 2.5 );
   ctx.fillText( "-Z", size * 1.5, size * 2.5 );
   
-  document.body.appendChild( canvas );
-  
   return canvas;
 }
 

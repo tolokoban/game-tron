@@ -1,8 +1,8 @@
 "use strict";
 
 const Dom = require("dom"),
-      Car = require("s1/car"),
-      Action = require("s1/tron.action");
+      Car = require("s1.car"),
+      Action = require("s1.tron.action");
 
 
 const DIMENSION = 2;

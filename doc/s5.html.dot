@@ -12,14 +12,11 @@ digraph dependencies {
     "s5.app" -> "webgl.resize"
 
     "s5.app" -> "webgl.camera"
-
-    "s5.app" -> "webgl.painter.standard-cube"
-    "webgl.painter.standard-cube" -> "webgl.program"
-    "webgl.program" -> "$"
     "webgl.camera" -> "webgl.math"
     "webgl.math" -> "$"
     "webgl.resize" -> "$"
     "s5.painter.car-wall" -> "webgl.program"
+    "webgl.program" -> "$"
     "s5.polyline" -> "common"
     "s5.tron.action" -> "s5.tron.action.keyboard"
 
