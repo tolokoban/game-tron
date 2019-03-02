@@ -1,4 +1,6 @@
-www/
 tmp/
+www/
 *~
-spec/mod/
+#*
+.#*
+
